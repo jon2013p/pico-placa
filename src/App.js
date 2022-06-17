@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import {LicensePlateNumberVerification} from "./components/LicensePlateNumberVerification";
+import {Row} from "antd";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Row justify={'center'}>
+        <p>Verifica si el vehículo puede circular en este momento</p>
+      </Row>
+      <Row>
+        <LicensePlateNumberVerification />
+      </Row>
     </div>
   );
 }
