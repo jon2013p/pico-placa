@@ -1,16 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
-import {LicensePlateNumberVerification} from "./components/LicensePlateNumberVerification";
-import {Row} from "antd";
+import React from "react";
+import './styles/App.css';
+import {Row, Typography} from "antd";
+import {LicensePlateNumberVerificationDynamic} from "./components/LicensePlateNumberVerificationDynamic";
+
+const {Title} = Typography;
 
 function App() {
   return (
     <div className="App">
       <Row justify={'center'}>
-        <p>Verifica si el vehículo puede circular en este momento</p>
+        <Title level={2}>Predictor de Pico y Placa</Title>
       </Row>
-      <Row>
-        <LicensePlateNumberVerification />
+      <Row justify={'center'}>
+          <LicensePlateNumberVerificationDynamic />
       </Row>
     </div>
   );

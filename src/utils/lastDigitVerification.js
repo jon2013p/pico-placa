@@ -1,4 +1,5 @@
 import hoursVerification from "./hoursVerification";
+import {notification} from "antd";
 
 const platesRestrictionsPerDay = {
     1: [1,2],
@@ -8,17 +9,28 @@ const platesRestrictionsPerDay = {
     5: [9,0]
 }
 
-export default function lastDigitVerification (currentDay, lastDigit, currentTime, type) {
+export default function lastDigitVerification (currentDay, lastDigit, currentTime) {
+    //License Plate Number verification with last digit and schedule
     const activeLicensePlates = platesRestrictionsPerDay[Object.keys(platesRestrictionsPerDay)[Object.keys(platesRestrictionsPerDay).indexOf(currentDay.toString())]];
 
-    console.log("Que recibo?", currentDay, lastDigit, currentTime, type)
-    console.log("Datos", activeLicensePlates[0], activeLicensePlates[1])
-    console.log("Tiempo", hoursVerification(currentTime));
-
-    if((activeLicensePlates[0] === lastDigit || activeLicensePlates[1] === lastDigit) && hoursVerification(currentTime))
+    if(activeLicensePlates && (activeLicensePlates[0] === lastDigit || activeLicensePlates[1] === lastDigit))
     {
-        type = 'currentDay' ? console.log("El vehículo no puede circular hoy") : console.log("El vehículo no puede circular en este horario");
+        if(hoursVerification(currentTime)){
+            notification['error']({
+                message: 'Detente!',
+                description: 'El vehículo no puede circular este día, a esta hora'
+            })
+        } else {
+            notification['warning']({
+                message: 'Ten cuidado!',
+                description: 'Hoy tienes pico y placa, pero puedes circular en los horarios establecidos'
+            })
+        }
+
     } else {
-        type = 'currentDay' ? console.log("El vehículo puede circular con normalidad") : console.log("El vehículo está autorizado a circular en este horario");
+        notification['success']({
+            message: 'Hoy no tienes pico y placa!',
+            description: 'El vehículo puede circular con normalidad'
+        })
     }
 }
